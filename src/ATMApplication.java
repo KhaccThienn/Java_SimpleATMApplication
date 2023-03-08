@@ -1,7 +1,8 @@
+import java.util.Random;
 import java.util.Scanner;
 
 public class ATMApplication {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         final String USERNAME = "khaccthienn";
         final String PASSWORD = "12345678";
         final String PIN = "190623";
@@ -13,8 +14,11 @@ public class ATMApplication {
         int choice;
         String choose;
 
+        Scanner sc = new Scanner(System.in);
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder();
+
         do {
-            Scanner sc = new Scanner(System.in);
             System.out.println("\n\t============> WELCOME TO KT BANK <============");
             System.out.println("1. Login.");
             System.out.println("2. Withdraw Cash.");
@@ -91,6 +95,15 @@ public class ATMApplication {
                                     System.out.print("Enter PIN Code: ");
                                     String pinCode = sc.nextLine();
                                     if (PIN.compareTo(pinCode) == 0) {
+                                        System.out.println("Pending...");
+                                        for (int i = 0 ; i <= 100 ; i++) {
+                                            sb.setLength(0);
+                                            sb.append("#".repeat(i));
+                                            Thread.sleep(100);
+                                            System.out.print("[" + String.format("%-100s", sb) + "] " +  i + "%");
+                                            System.out.print("\r");
+                                        }
+                                        System.out.println("Success !");
                                         balance -= amount;
                                         System.out.println("\tWithdraw Cash: " + amount);
                                         System.out.println("\tYour balance: " + balance);
@@ -114,6 +127,15 @@ public class ATMApplication {
                             System.out.print("Enter PIN Code: ");
                             String pinCode = sc.nextLine();
                             if (PIN.compareTo(pinCode) == 0) {
+                                System.out.println("Pending...");
+                                for (int i = 0 ; i <= 100 ; i++) {
+                                    sb.setLength(0);
+                                    sb.append("#".repeat(i));
+                                    Thread.sleep(100);
+                                    System.out.print("[" + String.format("%-100s", sb) + "] " +  i + "%");
+                                    System.out.print("\r");
+                                }
+                                System.out.println("Success !");
                                 balance += amount;
                                 System.out.println("\tPay In Successfully");
                                 System.out.println("\tYour balance: " + balance);
@@ -152,6 +174,15 @@ public class ATMApplication {
                     choose = sc.nextLine();
                     if (choose.toLowerCase().compareTo("y") == 0 || choose.compareTo("Y") == 0) {
                         System.out.println("Thanks for using our service !");
+                        System.out.println("Trying to quit...");
+                        for (int i = 0 ; i <= 100 ; i++) {
+                            sb.setLength(0);
+                            sb.append("#".repeat(i));
+                            Thread.sleep(random.nextInt(100));
+                            System.out.print("[" + String.format("%-100s", sb) + "] " +  i + "%");
+                            System.out.print("\r");
+                        }
+                        System.out.println("Exit Successfully !");
                         System.exit(0);
                     }
                 }
