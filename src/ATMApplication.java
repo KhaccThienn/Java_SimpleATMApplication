@@ -1,3 +1,6 @@
+import java.io.Console;
+import java.text.DecimalFormat;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -17,6 +20,8 @@ public class ATMApplication {
         Scanner sc = new Scanner(System.in);
         Random random = new Random();
         StringBuilder sb = new StringBuilder();
+        Console console = System.console();
+        DecimalFormat df2 = new DecimalFormat("#,###,###,###");
 
         do {
             System.out.println("\n\t============> WELCOME TO KT BANK <============");
@@ -38,8 +43,16 @@ public class ATMApplication {
                     System.out.print("Enter Username: ");
                     String username = sc.nextLine();
                     if (!username.isBlank() && USERNAME.compareTo(username) == 0) {
-                        System.out.print("Enter password: ");
-                        String password = sc.nextLine();
+//                        System.out.print("Enter password: ");
+//                        String password = sc.nextLine();
+                        if (console == null) {
+                            System.out.println("Console is not available");
+                            System.exit(1);
+                        }
+                        char[] passwordArray = console.readPassword("Enter your password: ");
+                        String password = new String(passwordArray);
+                        Arrays.fill(passwordArray, '*');
+
                         if (!password.isBlank() && PASSWORD.compareTo(password) == 0) {
                             isLogged = true;
                             System.out.println("You're Logged In !");
@@ -92,21 +105,28 @@ public class ATMApplication {
                             }
                             if (isWithDrawable) {
                                 if (balance >= amount) {
-                                    System.out.print("Enter PIN Code: ");
-                                    String pinCode = sc.nextLine();
+                                    // System.out.print("Enter PIN Code: ");
+                                    if (console == null) {
+                                        System.out.println("Console is not available");
+                                        System.exit(1);
+                                    }
+                                    char[] pinCodeArr = console.readPassword("Enter PIN Code: ");
+                                    String pinCode = new String(pinCodeArr);
+                                    Arrays.fill(pinCodeArr, '*');
+                                    // String pinCode = sc.nextLine();
                                     if (PIN.compareTo(pinCode) == 0) {
                                         System.out.println("Pending...");
-                                        for (int i = 0 ; i <= 100 ; i++) {
+                                        for (int i = 0; i <= 100; i++) {
                                             sb.setLength(0);
-                                            sb.append("#".repeat(i));
+                                            sb.append("-".repeat(i));
                                             Thread.sleep(100);
-                                            System.out.print("[" + String.format("%-100s", sb) + "] " +  i + "%");
+                                            System.out.print("[" + String.format("%-100s", sb) + "] " + i + "%");
                                             System.out.print("\r");
                                         }
                                         System.out.println("Success !");
                                         balance -= amount;
-                                        System.out.println("\tWithdraw Cash: " + amount + " vnd");
-                                        System.out.println("\tYour balance: " + balance + " vnd");
+                                        System.out.println("\tWithdraw Cash: " + df2.format(amount) + " vnd");
+                                        System.out.println("\tYour balance: " + df2.format(balance) + " vnd");
                                     } else {
                                         System.out.println("Incorrect PIN Code !");
                                     }
@@ -123,26 +143,25 @@ public class ATMApplication {
                     if (isLogged) {
                         System.out.print("Enter the amount: ");
                         amount = Long.parseLong(sc.nextLine());
-                        if (amount > 0 || amount % 10000 == 0) {
+                        if (amount > 0 && amount % 10000 == 0) {
                             System.out.print("Enter PIN Code: ");
                             String pinCode = sc.nextLine();
                             if (PIN.compareTo(pinCode) == 0) {
                                 System.out.println("Pending...");
-                                for (int i = 0 ; i <= 100 ; i++) {
+                                for (int i = 0; i <= 100; i++) {
                                     sb.setLength(0);
-                                    sb.append("#".repeat(i));
+                                    sb.append("-".repeat(i));
                                     Thread.sleep(100);
-                                    System.out.print("[" + String.format("%-100s", sb) + "] " +  i + "%");
+                                    System.out.print("[" + String.format("%-100s", sb) + "] " + i + "%");
                                     System.out.print("\r");
                                 }
                                 System.out.println("Success !");
                                 balance += amount;
                                 System.out.println("\tPay In Successfully");
-                                System.out.println("\tYour balance: " + balance + " vnd");
+                                System.out.println("\tYour balance: " + df2.format(balance) + " vnd");
                             } else {
                                 System.out.println("Incorrect PIN Code");
                             }
-
                         } else {
                             System.out.println("Please provide valid amount !");
                         }
@@ -152,7 +171,7 @@ public class ATMApplication {
                 }
                 case 4 -> {
                     if (isLogged) {
-                        System.out.println("\tYour balance: " + balance + " vnd");
+                        System.out.println("\tYour balance: " + df2.format(balance) + " vnd");
                     } else {
                         System.out.println("You must be logged in to use this service !");
                     }
@@ -175,11 +194,11 @@ public class ATMApplication {
                     if (choose.toLowerCase().compareTo("y") == 0 || choose.compareTo("Y") == 0) {
                         System.out.println("Thanks for using our service !");
                         System.out.println("Trying to quit...");
-                        for (int i = 0 ; i <= 100 ; i++) {
+                        for (int i = 0; i <= 100; i++) {
                             sb.setLength(0);
-                            sb.append("#".repeat(i));
+                            sb.append("-".repeat(i));
                             Thread.sleep(random.nextInt(100));
-                            System.out.print("[" + String.format("%-100s", sb) + "] " +  i + "%");
+                            System.out.print("[" + String.format("%-100s", sb) + "] " + i + "%");
                             System.out.print("\r");
                         }
                         System.out.println("Exit Successfully !");
