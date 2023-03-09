@@ -80,7 +80,7 @@ public class ATMApplication {
                                 case 8 -> amount = 2000000;
                                 case 9 -> amount = 5000000;
                                 case 0 -> {
-                                    System.out.print("Enter the amount");
+                                    System.out.print("Enter the amount: ");
                                     amount = Long.parseLong(sc.nextLine());
                                     if (amount < 0 || amount % 10000 != 0) {
                                         System.out.println("Please provide valid amount !");
@@ -105,8 +105,8 @@ public class ATMApplication {
                                         }
                                         System.out.println("Success !");
                                         balance -= amount;
-                                        System.out.println("\tWithdraw Cash: " + amount);
-                                        System.out.println("\tYour balance: " + balance);
+                                        System.out.println("\tWithdraw Cash: " + amount + " vnd");
+                                        System.out.println("\tYour balance: " + balance + " vnd");
                                     } else {
                                         System.out.println("Incorrect PIN Code !");
                                     }
@@ -121,7 +121,7 @@ public class ATMApplication {
                 }
                 case 3 -> {
                     if (isLogged) {
-                        System.out.print("Enter the amount:");
+                        System.out.print("Enter the amount: ");
                         amount = Long.parseLong(sc.nextLine());
                         if (amount > 0 || amount % 10000 == 0) {
                             System.out.print("Enter PIN Code: ");
@@ -138,7 +138,7 @@ public class ATMApplication {
                                 System.out.println("Success !");
                                 balance += amount;
                                 System.out.println("\tPay In Successfully");
-                                System.out.println("\tYour balance: " + balance);
+                                System.out.println("\tYour balance: " + balance + " vnd");
                             } else {
                                 System.out.println("Incorrect PIN Code");
                             }
@@ -152,7 +152,7 @@ public class ATMApplication {
                 }
                 case 4 -> {
                     if (isLogged) {
-                        System.out.println("\tYour balance: " + balance);
+                        System.out.println("\tYour balance: " + balance + " vnd");
                     } else {
                         System.out.println("You must be logged in to use this service !");
                     }
