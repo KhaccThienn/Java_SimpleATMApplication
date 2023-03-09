@@ -188,6 +188,6 @@ public class ATMApplication {
                 }
                 default -> System.out.println("Invalid Choice !");
             }
-        } while (true);
+        } while (choice >= 1 && choice <= 6);
     }
 }
